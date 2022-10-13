@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class AsyncService {
     private final int DELAY = 1000;
-    private final int INIT_DELAY = 2000;
+    private final int INIT_DELAY = 1500;
 
     private AtomicLong value = new AtomicLong(0);
     private Executor executor = Executors.newFixedThreadPool(4);
