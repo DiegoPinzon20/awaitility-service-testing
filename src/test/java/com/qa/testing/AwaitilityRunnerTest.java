@@ -10,6 +10,7 @@ import org.junit.runners.JUnit4;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.*;
 import static org.awaitility.pollinterval.FibonacciPollInterval.fibonacci;
@@ -28,17 +29,17 @@ public class AwaitilityRunnerTest {
     @Test
     public void basicTestAwaility() {
         /*El estado se obtiene mediante un Callable que sondea nuestro servicio a
-        intervalos definidos (100 ms por defecto) después de un retraso inicial
+        intervalos definidos (100 ms por defecto) despues de un retraso inicial
         especificado (por defecto 100 ms) y una espera maxima por defecto de 10 segundos*/
 
         asyncService.initialize();//Se inicializa el servicio
-        await().until(asyncService::isInitialized);// usamos await , uno de los metodos estáticos de la clase Awaitility
+        await().until(asyncService::isInitialized);// usamos await , uno de los metodos estaticos de la clase Awaitility
     }
 
     @Test
     public void testingAwaitilityWithSetDefault() {
 
-        Awaitility.setDefaultPollInterval(200, TimeUnit.MILLISECONDS); //el intervalo que pregunta
+        Awaitility.setDefaultPollInterval(200, MILLISECONDS); //el intervalo que pregunta
         Awaitility.setDefaultPollDelay(Duration.ZERO); //el retraso
         Awaitility.setDefaultTimeout(Durations.FIVE_SECONDS); //tiempo de espera
 
@@ -64,9 +65,9 @@ public class AwaitilityRunnerTest {
 
     @Test
     public void testingIgnoringExceptions() {
-        /*A veces, tenemos una situación en la que un método lanza una excepción
-        antes de que se realice un trabajo asíncrono. En nuestro servicio, puede
-        ser una llamada al método getValue antes de que se inicialice el servicio*/
+        /*A veces, tenemos una situacion en la que un metodo lanza una excepcion
+        antes de que se realice un trabajo asincrono. En nuestro servicio, puede
+        ser una llamada al metodo getValue antes de que se inicialice el servicio*/
 
         asyncService.initialize();
         given().ignoreException(IllegalStateException.class)
@@ -118,7 +119,7 @@ public class AwaitilityRunnerTest {
     @Test
     public void testingFibonacciPollIntervalWithOffset() {
         /*Desplazamiento significa que la secuencia de Fibonacci se
-        inicia a partir de este desplazamiento (por defecto, el desplazamiento es 0). El desplazamiento también puede ser negativo (-1) para comenzar con 0 ( fib(0)= 0).
+        inicia a partir de este desplazamiento (por defecto, el desplazamiento es 0). El desplazamiento tambien puede ser negativo (-1) para comenzar con 0 ( fib(0)= 0).
          */
 
         asyncService.initialize();
