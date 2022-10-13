@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.qa.testing.AwaitilityRunnerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-13T15:33:16" hostname="PSOFKA0807" time="2.093">
+  <properties/>
+  <testcase name="testingAwaitility" classname="com.qa.testing.AwaitilityRunnerTest" time="2.093"/>
+  <system-out><![CDATA[INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:false
+INICIALIZADO:true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
