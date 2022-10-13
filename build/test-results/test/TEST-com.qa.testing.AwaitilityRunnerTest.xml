@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.qa.testing.AwaitilityRunnerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-13T16:11:00" hostname="PSOFKA0807" time="1.564">
-  <properties/>
-  <testcase name="testingAccessingPrivateFields" classname="com.qa.testing.AwaitilityRunnerTest" time="1.564"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
