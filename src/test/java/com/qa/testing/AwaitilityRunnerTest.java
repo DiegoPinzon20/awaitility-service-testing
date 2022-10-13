@@ -10,7 +10,9 @@ import org.junit.runners.JUnit4;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.*;
+import static org.awaitility.pollinterval.FibonacciPollInterval.fibonacci;
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(JUnit4.class)
@@ -20,6 +22,7 @@ public class AwaitilityRunnerTest {
     @Before
     public void setUp() {
         asyncService = new AsyncService();
+        Awaitility.reset();
     }
 
     @Test
@@ -73,8 +76,8 @@ public class AwaitilityRunnerTest {
                 .until(asyncService::getValue, equalTo(0L));
     }
 
-    @Test
-    public void testingAccessingPrivateFields(){
+    @Test(timeout = 2000)
+    public void testingAccessingPrivateFields() {
         /*Awaitility puede incluso acceder a campos privados
         para realizar afirmaciones sobre ellos*/
         asyncService.initialize();
@@ -82,5 +85,48 @@ public class AwaitilityRunnerTest {
                 .until(fieldIn(asyncService)
                         .ofType(boolean.class)
                         .andWithName("initialized"), equalTo(true));
+
+//        await().until( fieldIn(asyncService).ofType(boolean.class), equalTo(true) );
+//        await().until( fieldIn(asyncService).ofType(int.class).andAnnotatedWith(MyAnnotation.class), equalTo(2) );
+    }
+
+    @Test
+    public void testingFibonacciPollIntervalDefaultMilliseconds() {
+        /*FibonacciPollInterval genera un intervalo de sondeo no lineal basado en la secuencia de Fibonacci
+         * Esto generara un intervalo de sondeo de 1, 1, 2, 3, 5, 8, 13, ... milisegundos */
+
+        asyncService.initialize();
+        with().pollInterval(fibonacci()).await().until(
+                fieldIn(asyncService)
+                        .ofType(boolean.class)
+                        .andWithName("initialized"), equalTo(true)
+        );
+    }
+
+    @Test
+    public void testingFibonacciPollIntervalSeconds() {
+        //FibonacciPollInterval genera un intervalo de sondeo no lineal basado en la secuencia de Fibonacci
+
+        asyncService.initialize();
+        with().pollInterval(fibonacci(SECONDS)).await().until(
+                fieldIn(asyncService)
+                        .ofType(boolean.class)
+                        .andWithName("initialized"), equalTo(true)
+        );
+    }
+
+    @Test
+    public void testingFibonacciPollIntervalWithOffset() {
+        /*Desplazamiento significa que la secuencia de Fibonacci se
+        inicia a partir de este desplazamiento (por defecto, el desplazamiento es 0). El desplazamiento también puede ser negativo (-1) para comenzar con 0 ( fib(0)= 0).
+         */
+
+        asyncService.initialize();
+
+        with().pollInterval(fibonacci().with().unit(SECONDS).and().offset(5))
+                .await().until(
+                        fieldIn(asyncService)
+                                .ofType(boolean.class)
+                                .andWithName("initialized"), equalTo(true));
     }
 }
